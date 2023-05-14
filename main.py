@@ -84,7 +84,6 @@ def predict(img, model, candidateId):
   st.subheader(f'it is a {classes[candidateId][1]}')
   thingNameLst = classes[candidateId][1].split('_')
   printDiyData(thingNameLst)
-  return switch
   
 
 model = load_model()
