@@ -94,8 +94,41 @@ def getContent_2(thingNameLst):
             
     return filteredData
 
+
+def getContent_3(thingNameLst):
+	thingName = ''
+	firstWord = True
+	for word in thingNameLst:
+		if firstWord:
+			thingName = thingName + word
+			firstWord = False
+		else:
+			thingName = thingName + '+' + word
+	
+	url = f'https://diyjoy.com/?s={thingName}'
+	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+	page = requests.get(url, headers=headers)
+	
+	filteredData = []
+	allData = []
+	
+	soup = BeautifulSoup(page.text, "html.parser")
+	
+	allData = soup.findAll('article')
+	for data in allData:
+		filtered = []
+		if data.find('a', attrs={'class': 'video-index-block-img-link'}) is not None:
+			filtered.append(data.find('a', attrs={'class': 'video-index-block-img-link'}).get('href'))
+			filtered.append(data.find('a', attrs={'class': 'video-index-block-img-link'}).get('title'))
+			filtered.append(data.find('img').get('src'))
+			filtered.append(data.find('div', attrs={'class': 'entry-summary'}).find('p').text)
+			filteredData.append(filtered)
+	
+	return filteredData
+
+
 def printDiyData(thingNameLst):
-    diyData = getContent_1(thingNameLst) + getContent_2(thingNameLst)
+    diyData = getContent_1(thingNameLst) + getContent_2(thingNameLst) + getContent_3(thingNameLst)
     if len(diyData) < 10:
         x = len(diyData)
     else:
