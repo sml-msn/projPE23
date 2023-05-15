@@ -1,5 +1,6 @@
 import main as m
 import pytest
+import requests 
 
 # check url accessibility
 def test_url_accessibility():
