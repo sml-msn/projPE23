@@ -95,7 +95,7 @@ def getContent_2(thingNameLst):
     return filteredData
 
 def printDiyData(thingNameLst):
-    diyData = getContent_1(thingNameLst)
+    diyData = getContent_1(thingNameLst) + getContent_2(thingNameLst)
     if len(diyData) < 10:
         x = len(diyData)
     else:
