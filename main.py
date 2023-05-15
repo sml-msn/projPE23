@@ -95,3 +95,4 @@ result = st.button('Scan image')
 if result:
     candidateId = 0
     predict(img, model, candidateId)
+#test
