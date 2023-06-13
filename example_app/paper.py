@@ -26,11 +26,11 @@ st.write("Yes! Pizza boxes can be recycled, even if they have grease in them.\
 
 st.header("Local recycling")
 df = pd.DataFrame(np.array([[56.850070937905315, 60.6438780875638],
-                            [56.84253295582028, 60.67638554449489], 
+                            [56.84253295582028, 60.67638554449489],
                             [56.84701142459734, 60.61574882565075],
                             [56.83473973233743, 60.623572764765655],
                             [56.832288865260466, 60.694096869352244]]),
-    columns=['lat', 'lon'])
+                  columns=['lat', 'lon'])
 st.map(df)
 
 st.subheader("«Uralvtorma»")
@@ -43,5 +43,3 @@ st.write("+7 (904) 382-31-30")
 st.subheader("«Radon-s»")
 st.write("Mamina-Sibiryak Street, 85")
 st.write("+7 (343) 350-02-45")
-
-
