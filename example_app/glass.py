@@ -23,9 +23,9 @@ st.write("No, metal bottle caps should be recycled separately from the glass bot
 
 st.header("Local recycling")
 df = pd.DataFrame(np.array([[56.83908653272441, 60.664743161437244],
-                            [56.83864065320008, 60.64765229697966], 
+                            [56.83864065320008, 60.64765229697966],
                             [56.83217829989505, 60.69366639157996]]),
-    columns=['lat', 'lon'])
+                  columns=['lat', 'lon'])
 st.map(df)
 
 st.subheader("StekloVtorEkb")
