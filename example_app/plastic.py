@@ -38,9 +38,9 @@ st.write("_Biobased Plastics_: To determine what waste disposal options\
          it is necessary to read the product's label as to its compostability and recyclability.")
 st.header("Local recycling")
 df = pd.DataFrame(np.array([[56.83855123705221, 60.64731955945884],
-                            [56.83472414413396, 60.623979144317644], 
+                            [56.83472414413396, 60.623979144317644],
                             [56.846843692461, 60.615760582200394]]),
-    columns=['lat', 'lon'])
+                  columns=['lat', 'lon'])
 st.map(df)
 
 st.write("Gagarina Street, 47")
