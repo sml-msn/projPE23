@@ -148,11 +148,14 @@ model = load_model()
 
 
 st.title('Give it a chance!')
-if 'switcher' not in st.session_state:
-    st.session_state['switcher'] = -1 # index for predLst (see the next line)
-if 'predLst' not in st.session_state:
-    st.session_state['predLst'] = [] # list of predictions, example: 
-                                  # [[0.96, 'thing_one'],[0.70, 'thing_three'],[0.54, 'thing_three']]
+try:
+    if 'switcher' not in st.session_state:
+        st.session_state['switcher'] = -1 # index for predLst (see the next line)
+    if 'predLst' not in st.session_state:
+        st.session_state['predLst'] = [] # list of predictions, example: 
+                                         # [[0.96, 'thing_one'],[0.70, 'thing_three'],[0.54, 'thing_three']]
+except AttributeError:
+    print('A streamlit weird thing')
 
 img = load_image()
 
