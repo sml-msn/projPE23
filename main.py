@@ -53,7 +53,10 @@ def createThingName(thingNameLst, delim):
 
 # making a soup from the page
 def createSoup(url):
-    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+    headers = {'User-Agent': 
+	       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) \
+	       AppleWebKit/537.36 (KHTML, like Gecko) \
+	       Chrome/50.0.2661.102 Safari/537.36'}
     page = requests.get(url, headers=headers, verify=False)
     soup = BeautifulSoup(page.text, "html.parser")
     return soup
@@ -61,14 +64,14 @@ def createSoup(url):
 
 # getting content from https://diyprojects.com/
 def getContent_1(thingNameLst):
-    thingName = createThingName(thingNameLst, delim = '+')
-    
+    thingName = createThingName(thingNameLst, delim='+')
+
     url = f'https://diyprojects.com/?s={thingName}'
     soup = createSoup(url)
-    
+
     filteredData = []
     allData = []
-    
+
     allData = soup.findAll('article')
     for data in allData:
         filtered = []
@@ -78,44 +81,44 @@ def getContent_1(thingNameLst):
             filtered.append(data.find('img', attrs={'class': 'alignleft post-image entry-image'}).get('src'))
             filtered.append(data.find('div', attrs={'class': 'entry-content'}).find('p').text)
             filteredData.append(filtered)
-    
+
     return filteredData
 
 
 # getting content from https://www.hometalk.com
 def getContent_2(thingNameLst):
-    thingName = createThingName(thingNameLst, delim = '%20')
-    
+    thingName = createThingName(thingNameLst, delim='%20')
+
     url = f'https://www.hometalk.com/search/all?filter={thingName}'
     soup = createSoup(url)
-    
+
     filteredData = []
     allData = []
-    
+
     allData = soup.find_all('div', {'class': 'media-component relative js-pin-item'})
     for data in allData:
         filtered = []
         if (data.find('a', attrs={'class': 'js-card-img'}) is not None) and ((data.find('img') is not None)):
             filtered.append('https://www.hometalk.com' + data.find('a', attrs={'class': 'js-card-img'}).get('href'))
             filtered.append(data.find('img').get('alt'))
-            #filtered.append(data.find('div', {'class': 'post-body'}).find('a').text)
+            # filtered.append(data.find('div', {'class': 'post-body'}).find('a').text)
             filtered.append(data.find('img').get('data-src'))
             filtered.append(None)
             filteredData.append(filtered)
-            
+        
     return filteredData
 
 
 # getting content from https://diyjoy.com
 def getContent_3(thingNameLst):
-    thingName = createThingName(thingNameLst, delim = '+')
-    
+    thingName = createThingName(thingNameLst, delim='+')
+
     url = f'https://diyjoy.com/?s={thingName}'
     soup = createSoup(url)
-    
+
     filteredData = []
     allData = []
-    
+
     allData = soup.findAll('article')
     for data in allData:
         filtered = []
@@ -125,13 +128,13 @@ def getContent_3(thingNameLst):
             filtered.append(data.find('img').get('src'))
             filtered.append(data.find('div', attrs={'class': 'entry-summary'}).find('p').text)
             filteredData.append(filtered)
-    
+
     return filteredData
 
 
 # printing data parsed from the web page
 def printDiyData(thingNameLst):
-    diyData = getContent_1(thingNameLst) + getContent_2(thingNameLst) + getContent_3(thingNameLst) 
+    diyData = getContent_1(thingNameLst) + getContent_2(thingNameLst) + getContent_3(thingNameLst)
     if len(diyData) < 10:
         x = len(diyData)
     else:
@@ -140,21 +143,23 @@ def printDiyData(thingNameLst):
         st.header(diyData[i][1])
         st.write(diyData[i][0])
         st.image(diyData[i][2])
-        if diyData[i][3] != None:
+        if diyData[i][3] is not None:
             st.write(diyData[i][3])
         st.write('------------------')
+
 
 def predict(img, model, candidateId):
     switch = candidateId
     x = preprocess_image(img)
     preds = model.predict(x)
-    #st.write('**Результаты распознавания:**')
-    #print_predictions(preds)
+    # st.write('**Результаты распознавания:**')
+    # print_predictions(preds)
     classes = decode_predictions(preds, top=3)[0]
     st.subheader(f'it is a {classes[candidateId][1]}')
     thingNameLst = classes[candidateId][1].split('_')
     printDiyData(thingNameLst)
     return switch
+
 
 model = load_model()
 
@@ -170,7 +175,7 @@ if result:
     candidateId = 0
     switch = predict(img, model, candidateId)
     giveInstructions = False
-	
+
 if st.button('No, it\'s NOT.'):
     candidateId = 1
     switch = predict(img, model, candidateId)
