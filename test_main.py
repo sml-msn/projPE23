@@ -1,6 +1,8 @@
-import main as m
 import pytest
 import requests 
+
+st.session_state.switcher = -2 #testing state
+import main as m
 
 # check url accessibility
 def test_url_accessibility():
