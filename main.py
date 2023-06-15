@@ -144,6 +144,18 @@ def printDiyData(thingNameLst):
             st.write(diyData[i][3])
         st.write('------------------')
 
+def predict(img, model, candidateId):
+    switch = candidateId
+    x = preprocess_image(img)
+    preds = model.predict(x)
+    #st.write('**Результаты распознавания:**')
+    #print_predictions(preds)
+    classes = decode_predictions(preds, top=3)[0]
+    st.subheader(f'it is a {classes[candidateId][1]}')
+    thingNameLst = classes[candidateId][1].split('_')
+    printDiyData(thingNameLst)
+    return switch
+
 model = load_model()
 
 st.title('Give it a chance!')
