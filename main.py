@@ -184,4 +184,4 @@ if switch == 1:
 if giveInstructions:
     if st.button('How do I utilize it?'):
         st.write('this is a placeholder')
-        st.image(instructionImg)
+        #st.image(instructionImg)
