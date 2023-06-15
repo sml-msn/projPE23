@@ -11,6 +11,7 @@ from main import preprocess_image, load_image, print_predictions
 @st.cache(allow_output_mutation=True)
 def load_model():
     return EfficientNetB0(weights='imagenet')
+model = load_model()
 
 def test_prep_img():
     #with open() as image_data:
