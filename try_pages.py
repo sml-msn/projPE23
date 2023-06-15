@@ -1,9 +1,9 @@
-import io
+# import io
 import streamlit as st
-from PIL import Image
-import numpy as np
+# from PIL import Image
+# import numpy as np
 
-from st_pages import Page, add_page_title, show_pages
+from st_pages import Page, show_pages  # add_page_title
 
 st.header("Responsible person's page :writing_hand:")
 
@@ -23,7 +23,7 @@ show_pages(
         Page("example_app/glass.py", "Glass", "🥛"),
         Page("example_app/metal.py", "Metal", "📎"),
         Page("example_app/paper.py", "Paper", "📰"),
-        Page("example_app/plastic.py", "Plastic", "♻️"),        
+        Page("example_app/plastic.py", "Plastic", "♻️"),
     ]
 )
 
