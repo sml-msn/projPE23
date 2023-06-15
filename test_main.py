@@ -1,9 +1,6 @@
 import streamlit as st
 import pytest
-import requests 
-
-st.session_state.switcher = -2 #testing state
-import main as m
+import requests
 
 # check url accessibility
 def test_url_accessibility():
