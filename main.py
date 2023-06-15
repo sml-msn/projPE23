@@ -53,10 +53,10 @@ def createThingName(thingNameLst, delim):
 
 # making a soup from the page
 def createSoup(url):
-    headers = {'User-Agent': 
-	       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) \
-	       AppleWebKit/537.36 (KHTML, like Gecko) \
-	       Chrome/50.0.2661.102 Safari/537.36'}
+    headers = {'User-Agent':
+               'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) \
+               AppleWebKit/537.36 (KHTML, like Gecko) \
+               Chrome/50.0.2661.102 Safari/537.36'}
     page = requests.get(url, headers=headers, verify=False)
     soup = BeautifulSoup(page.text, "html.parser")
     return soup
@@ -105,7 +105,7 @@ def getContent_2(thingNameLst):
             filtered.append(data.find('img').get('data-src'))
             filtered.append(None)
             filteredData.append(filtered)
-        
+
     return filteredData
 
 
