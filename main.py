@@ -146,6 +146,11 @@ def printDiyData(thingNameLst):
 
 model = load_model()
 
+# FOR PYTESTING PURPOSES! Comment the following two lines if you don't want to run pytest
+st.session_state['switcher'] = -2 
+st.session_state['predLst'] = []
+#################################
+
 st.title('Give it a chance!')
 if 'switcher' not in st.session_state:
     st.session_state['switcher'] = -1 # index for predLst (see the next line)
