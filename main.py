@@ -23,7 +23,7 @@ def preprocess_image(img):
 
 
 def load_image():
-    uploaded_file = st.file_uploader(label='Choose image')
+    uploaded_file = st.file_uploader(label='Choose image', type=['png', 'jpg', 'jpeg'])
     if uploaded_file is not None:
         image_data = uploaded_file.getvalue()
         st.image(image_data)
@@ -146,10 +146,6 @@ def printDiyData(thingNameLst):
 
 model = load_model()
 
-# FOR PYTESTING PURPOSES! Comment the following two lines if you don't want to run pytest
-st.session_state['switcher'] = -2 
-st.session_state['predLst'] = []
-#################################
 
 st.title('Give it a chance!')
 if 'switcher' not in st.session_state:
