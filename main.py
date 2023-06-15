@@ -161,19 +161,20 @@ model = load_model()
 st.title('Give it a chance!')
 img = load_image()
 result = st.button('Scan image')
+
+# initial parameters
 switch = 1
 giveInstructions = True
+
 if result:
     candidateId = 0
     switch = predict(img, model, candidateId)
     giveInstructions = False
-#st.write(switch)
 	
 if st.button('No, it\'s NOT.'):
     candidateId = 1
     switch = predict(img, model, candidateId)
     giveInstructions = False
-#st.write(switch)
 
 if switch == 1:
     if st.button('No! You are wrong!'):
@@ -183,5 +184,5 @@ if switch == 1:
 
 if giveInstructions:
     if st.button('How do I utilize it?'):
-        st.write('this is a placeholder')
-        #st.image(instructionImg)
+        instructionImg = Image.open('pictures/pamyatkamusor.png')
+        st.image(instructionImg)
