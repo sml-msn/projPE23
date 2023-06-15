@@ -41,16 +41,16 @@ def getContent_1(thingNameLst):
             firstWord = False
         else:
             thingName = thingName + '+' + word
-  
+
     url = f'https://diyprojects.com/?s={thingName}'
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
     page = requests.get(url, headers=headers, verify=False)
-  
+
     filteredData = []
     allData = []
-  
+
     soup = BeautifulSoup(page.text, "html.parser")
-  
+
     allData = soup.findAll('article')
     for data in allData:
         filtered = []
@@ -60,8 +60,9 @@ def getContent_1(thingNameLst):
             filtered.append(data.find('img', attrs={'class': 'alignleft post-image entry-image'}).get('src'))
             filtered.append(data.find('div', attrs={'class': 'entry-content'}).find('p').text)
             filteredData.append(filtered)
-  
+
     return filteredData
+
 
 def getContent_2(thingNameLst):
     thingName = ''
@@ -76,12 +77,12 @@ def getContent_2(thingNameLst):
     url = f'https://www.hometalk.com/search/all?filter={thingName}'
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
     page = requests.get(url, headers=headers)
-    
+
     filteredData = []
     allData = []
-    
+
     soup = BeautifulSoup(page.text, "html.parser")
-    
+
     allData = soup.find_all('div', {'class': 'media-component relative js-pin-item'})
     for data in allData:
         filtered = []
@@ -91,7 +92,7 @@ def getContent_2(thingNameLst):
             filtered.append(data.find('img').get('data-src'))
             filtered.append(None)
             filteredData.append(filtered)
-            
+        
     return filteredData
 
 
@@ -104,16 +105,16 @@ def getContent_3(thingNameLst):
             firstWord = False
         else:
             thingName = thingName + '+' + word
-    
+
     url = f'https://diyjoy.com/?s={thingName}'
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
     page = requests.get(url, headers=headers)
-    
+
     filteredData = []
     allData = []
-    
+
     soup = BeautifulSoup(page.text, "html.parser")
-    
+
     allData = soup.findAll('article')
     for data in allData:
         filtered = []
@@ -123,7 +124,7 @@ def getContent_3(thingNameLst):
             filtered.append(data.find('img').get('src'))
             filtered.append(data.find('div', attrs={'class': 'entry-summary'}).find('p').text)
             filteredData.append(filtered)
-    
+
     return filteredData
 
 
@@ -137,9 +138,10 @@ def printDiyData(thingNameLst):
         st.header(diyData[i][1])
         st.write(diyData[i][0])
         st.image(diyData[i][2])
-        if diyData[i][3] != None:
+        if diyData[i][3] is not None:
             st.write(diyData[i][3])
         st.write('------------------')
+
 
 def predict(img, model, candidateId):
     x = preprocess_image(img)
@@ -148,7 +150,7 @@ def predict(img, model, candidateId):
     st.subheader(f'it is a {classes[candidateId][1]}')
     thingNameLst = classes[candidateId][1].split('_')
     printDiyData(thingNameLst)
-  
+
 
 model = load_model()
 
