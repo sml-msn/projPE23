@@ -146,44 +146,30 @@ def printDiyData(thingNameLst):
 
 model = load_model()
 
-
 st.title('Give it a chance!')
-try:
-    if 'switcher' not in st.session_state:
-        st.session_state['switcher'] = -1 # index for predLst (see the next line)
-    if 'predLst' not in st.session_state:
-        st.session_state['predLst'] = [] # list of predictions, example: 
-                                         # [[0.96, 'thing_one'],[0.70, 'thing_three'],[0.54, 'thing_three']]
-except AttributeError:
-    print('A streamlit weird thing')
-
 img = load_image()
+result = st.button('Scan image')
+switch = 1
+giveInstructions = True
+if result:
+    candidateId = 0
+    switch = predict(img, model, candidateId)
+    giveInstructions = False
+#st.write(switch)
+	
+if st.button('No, it\'s NOT.'):
+    candidateId = 1
+    switch = predict(img, model, candidateId)
+    giveInstructions = False
+#st.write(switch)
 
-# the first try that gives us the most probable variant of prediction
-if st.button('Scan image'):
-    st.session_state.switcher = 0
-    x = preprocess_image(img)
-    preds = model.predict(x)
-    st.session_state.predLst = decode_predictions(preds, top=3)[0] # takes 3 preds and puts in predLst
-    st.subheader(f'it is a {st.session_state.predLst[st.session_state.switcher][1]}')
-    printDiyData(st.session_state.predLst[st.session_state.switcher][1].split('_'))
+if switch == 1:
+    if st.button('No! You are wrong!'):
+        candidateId = 2
+        predict(img, model, candidateId)
+        giveInstructions = True
 
-# if pressed: the second try that gives us the second probable variant of prediction
-if st.session_state.switcher == 0:
-    if st.button(f'No, it\'s NOT a {st.session_state.predLst[st.session_state.switcher][1]}'): 
-        st.session_state.switcher += 1
-        st.subheader(f'it is a {st.session_state.predLst[st.session_state.switcher][1]}')
-        printDiyData(st.session_state.predLst[st.session_state.switcher][1].split('_'))
-
-# if pressed: the third try that gives us the third probable variant of prediction
-if st.session_state.switcher == 1:
-    if st.button(f'No, it\'s NOT a {st.session_state.predLst[st.session_state.switcher][1]}'): 
-        st.session_state.switcher += 1
-        st.subheader(f'it is a {st.session_state.predLst[st.session_state.switcher][1]}')
-        printDiyData(st.session_state.predLst[st.session_state.switcher][1].split('_'))
-
-# the instructions button is on the screen
-if st.session_state.switcher == 2:
-    if st.button('How do I utilize it?'): # if pressed: shows an image with instructions
-        instructionImg = Image.open('pamyatkamusor.png')
+if giveInstructions:
+    if st.button('How do I utilize it?'):
+        st.write('this is a placeholder')
         st.image(instructionImg)
