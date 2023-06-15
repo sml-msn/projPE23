@@ -17,16 +17,9 @@ model = load_model()
 def test_prep_img():
     assert preprocess_image(Image.open(r"pictures/wine_bottle.jpg")) is not None
 
-# testing compatability with .jpg
-def test_jpg():
+# testing prediction
+def test_pred():
     x = preprocess_image(Image.open(r"pictures/wine_bottle.jpg"))
-    preds = model.predict(x)
-    classes = decode_predictions(preds, top=3)[0]
-    assert classes[0][1].split('_').count('wine') > 0
-
-# testing compatability with .png
-def test_png():
-    x = preprocess_image(Image.open(r"pictures/wine_bottle.png"))
     preds = model.predict(x)
     classes = decode_predictions(preds, top=3)[0]
     assert classes[0][1].split('_').count('wine') > 0
