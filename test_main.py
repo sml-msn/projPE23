@@ -5,13 +5,15 @@ from PIL import Image
 # import numpy as np
 from tensorflow.keras.applications import EfficientNetB0
 # from tensorflow.keras.preprocessing import image
-from tensorflow.keras.applications.efficientnet import decode_predictions # preprocess_input
+from tensorflow.keras.applications.efficientnet import decode_predictions  # preprocess_input
 from main import preprocess_image
 
 
 @st.cache(allow_output_mutation=True)
 def load_model():
     return EfficientNetB0(weights='imagenet')
+
+
 model = load_model()
 
 
@@ -31,7 +33,7 @@ def test_pred():
 # check url accessibility: diyprojects.com
 def test_url_accessibility():
     url = 'https://diyprojects.com'
-    headers = {'User-Agent': 
+    headers = {'User-Agent':
                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) \
                AppleWebKit/537.36 (KHTML, like Gecko) \
                Chrome/50.0.2661.102 Safari/537.36'}
@@ -43,19 +45,19 @@ def test_url_accessibility():
 # check url accessibility: hometalk.com
 def test_url_accessibility_2():
     url = 'https://www.hometalk.com'
-    headers = {'User-Agent': 
+    headers = {'User-Agent':
                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) \
                AppleWebKit/537.36 (KHTML, like Gecko) \
                Chrome/50.0.2661.102 Safari/537.36'}
     page = requests.get(url, headers=headers, verify=False)
     status = page.status_code
     assert status == 200
-    
+
 
 # check url accessibility: diyjoy.com
 def test_url_accessibility_3():
     url = 'https://diyjoy.com'
-    headers = {'User-Agent': 
+    headers = {'User-Agent':
                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) \
                AppleWebKit/537.36 (KHTML, like Gecko) \
                Chrome/50.0.2661.102 Safari/537.36'}
