@@ -23,7 +23,7 @@ def preprocess_image(img):
 
 
 def load_image():
-    uploaded_file = st.file_uploader(label='Choose image', type=['png', 'jpg', 'jpeg'])
+    uploaded_file = st.file_uploader(label='Choose image', type=['jpg', 'jpeg'])
     if uploaded_file is not None:
         image_data = uploaded_file.getvalue()
         st.image(image_data)
